@@ -5,10 +5,11 @@
 # Using Python 3.7
 
 class State:
-    """
-    Doc string comment - Comments multiple lines at once
+    """ Doc string comment - Comments multiple lines at once.
     A state with one or two edges , all edges labelled by label
     """
+
+    # Constructor
     def __init__(self, label=None, edges=[]):
         # Every state has 0, 1, or 2 edges from it
         self.edges = edges
@@ -105,15 +106,15 @@ def compile(infix):
             accept = State()
             start = State (edges=[frag2.start, frag1.start])
             # Point the old accept state at the new accept state
-            frag1.accept.edges.append(accept)
             frag2.accept.edges.append(accept)
+            frag1.accept.edges.append(accept)
         elif c == '*':
             # Pop a single fragment off the stack
             frag = nfa_stack.pop()
             accept = State()
             start = State(edges=[frag.start, accept])
             # Point the arrows
-            frag.accept.edges = ([frag.start, accept])
+            frag.accept.edges = [frag.start, accept]
         else:
             accept = State()
             start = State(label=c, edges=[accept])
@@ -179,7 +180,8 @@ if __name__ == "__main__":
             ["a.b|b*", "bbbbbb", True],
             ["a.b|b*", "bbx", False],
             ["a.b", "ab", True],
-            ["b**", "b", True]
+            ["b**", "b", True],
+            # Matching the empty string
             ["b*", "", True]
     ]
 
